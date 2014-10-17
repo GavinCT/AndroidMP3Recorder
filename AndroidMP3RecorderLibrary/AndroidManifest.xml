@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.czt.mp3recorder"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+<!--   
+使用此工程，必须有下列权限  
+1.  <uses-permission android:name="android.permission.RECORD_AUDIO" />
+2.  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 如果是4.4以上，且在自己的目录下写，则可以不使用此权限
+-->
+
+    <application
+        android:label="@string/app_name" >
+    </application>
+
+</manifest>
