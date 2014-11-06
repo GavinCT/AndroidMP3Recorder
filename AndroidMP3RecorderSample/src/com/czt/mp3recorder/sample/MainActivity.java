@@ -15,7 +15,7 @@ import com.czt.mp3recorder.MP3Recorder;
 
 public class MainActivity extends Activity {
 
-	private MP3Recorder mRecordManager = new MP3Recorder(new File(Environment.getExternalStorageDirectory(),"test.mp3"));
+	private MP3Recorder mRecorder = new MP3Recorder(new File(Environment.getExternalStorageDirectory(),"test.mp3"));
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					mRecordManager.start();
+					mRecorder.start();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 		stopButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mRecordManager.stop();
+				mRecorder.stop();
 			}
 		});
 	}
@@ -44,6 +44,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mRecordManager.stop();
+		mRecorder.stop();
 	}
 }
