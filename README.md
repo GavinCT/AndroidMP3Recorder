@@ -10,9 +10,10 @@ AndroidMP3Recorder
 # 使用方法
 ## 集成到项目中
 ### 使用libs.zip
+【温馨提示：只下载此zip可以使用插件[GitHub Mate](http://www.v2ex.com/t/93706)】  
 解压后在libs目录下有：  
 androidmp3recorderlibrary.jar 和支持arm、armv7、x86 CPU的so库    
-直接拷贝jar包&so库到自己工程的libs文件夹下即可
+直接拷贝jar包&so库到自己工程的libs文件夹下即可  
 ###  使用AndroidMP3RecorderLibrary
 直接将Library与自己工程关联即可。
 ## 录音功能实现
