@@ -90,7 +90,7 @@ public class MP3Recorder {
 				msg.sendToTarget();
 			}
 			/**
-			 * 此计算方法来自sumsung开发范例
+			 * 此计算方法来自samsung开发范例
 			 * 
 			 * @param buffer
 			 * @param readSize

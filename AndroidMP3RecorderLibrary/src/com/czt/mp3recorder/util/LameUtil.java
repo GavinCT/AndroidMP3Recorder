@@ -10,7 +10,7 @@ public class LameUtil {
 	 * 
 	 * @param inSamplerate
 	 *            input sample rate in Hz.
-	 * @param outChannel
+	 * @param inChannel
 	 *            number of channels in input stream.
 	 * @param outSamplerate
 	 *            output sample rate in Hz.
