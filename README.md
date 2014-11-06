@@ -33,3 +33,7 @@ androidmp3recorderlibrary.jar 和支持arm、armv7、x86 CPU的so库
 	```
 
 代码示例见：AndroidMP3RecorderSample
+# 关于so库的声明
+so库本身没有任何限制，但受限于Android NDK的支持 
+- arm armv7 支持Android 1.5 (API Level 3)及以上版本
+- x86支持Android 2.3 (API Level 9)及以上版本
