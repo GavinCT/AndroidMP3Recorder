@@ -90,7 +90,7 @@ public class MP3Recorder {
 				msg.sendToTarget();
 			}
 			/**
-			 * 此计算方法抄自sumsung
+			 * 此计算方法来自sumsung开发范例
 			 * 
 			 * @param buffer
 			 * @param readSize
@@ -111,6 +111,10 @@ public class MP3Recorder {
 	private int mVolume;
 	public int getVolume(){
 		return mVolume;
+	}
+	private static final int MAX_VOLUME = 2000;
+	public int getMaxVolume(){
+		return MAX_VOLUME;
 	}
 	public void stop(){
 		mIsRecording = false;
