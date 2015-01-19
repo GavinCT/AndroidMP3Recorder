@@ -103,8 +103,14 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 		if (mTasks.size() > 0) {
 			Task task = mTasks.remove(0);
 			short[] buffer = task.getData();
+			short[] rightData = task.getRightData();
 			int readSize = task.getReadSize();
-			int encodedSize = LameUtil.encode(buffer, buffer, readSize, mMp3Buffer);
+			if(task.getRightData() != null && task.getRightData().length > 0){
+				rightData = task.getRightData();
+			}else{
+				rightData = task.getData();
+			}
+			int encodedSize = LameUtil.encode(buffer, rightData, readSize, mMp3Buffer);
 			if (encodedSize > 0){
 				try {
 					mFileOutputStream.write(mMp3Buffer, 0, encodedSize);
@@ -115,6 +121,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 		}
 		return 0;
 	}
+	
 	
 	/**
 	 * Flush all data left in lame buffer to file
@@ -143,16 +150,30 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 	public void addTask(short[] rawData, int readSize){
 		mTasks.add(new Task(rawData, readSize));
 	}
+	public void addTask(short[] rawData,short[] rightData, int readSize){
+		mTasks.add(new Task(rawData, rightData,readSize));
+	}
 	private class Task{
 		private short[] rawData;
 		private int readSize;
+		private short[] rightData;
 		public Task(short[] rawData, int readSize){
 			this.rawData = rawData.clone();
+			this.readSize = readSize;
+		}
+		public Task(short[] leftData, short[] rightData,int readSize){
+			this.rawData = leftData.clone();
+			this.rightData = rightData.clone();
 			this.readSize = readSize;
 		}
 		public short[] getData(){
 			return rawData;
 		}
+		
+		public short[] getRightData(){
+			return rightData;
+		}
+		
 		public int getReadSize(){
 			return readSize;
 		}
