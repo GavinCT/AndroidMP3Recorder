@@ -19,6 +19,6 @@ android {
 }
 
 dependencies {
-    compile project(':AndroidMP3RecorderLibrary')
+    compile project(':library')
     compile 'com.android.support:support-v4:21.0.3'
 }
