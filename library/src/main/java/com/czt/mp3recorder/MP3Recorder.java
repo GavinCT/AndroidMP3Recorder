@@ -1,14 +1,14 @@
 package com.czt.mp3recorder;
 
-import java.io.File;
-import java.io.IOException;
-
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Message;
 
 import com.czt.mp3recorder.util.LameUtil;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MP3Recorder {
 	//=======================AudioRecord Default Settings=======================
@@ -92,8 +92,8 @@ public class MP3Recorder {
 			/**
 			 * 此计算方法来自samsung开发范例
 			 * 
-			 * @param buffer
-			 * @param readSize
+			 * @param buffer buffer
+			 * @param readSize readSize
 			 */
 			private void calculateRealVolume(short[] buffer, int readSize) {
 				int sum = 0;

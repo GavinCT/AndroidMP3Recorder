@@ -1,5 +1,12 @@
 package com.czt.mp3recorder;
 
+import android.media.AudioRecord;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+import com.czt.mp3recorder.util.LameUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,13 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import android.media.AudioRecord;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
-import com.czt.mp3recorder.util.LameUtil;
-
 public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPositionUpdateListener {
 	public static final int PROCESS_STOP = 1;
 	private StopHandler mHandler;
@@ -26,7 +26,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 	private CountDownLatch mHandlerInitLatch = new CountDownLatch(1);
 	
 	/**
-	 * @see https://groups.google.com/forum/?fromgroups=#!msg/android-developers/1aPZXZG6kWk/lIYDavGYn5UJ
+	 * @see <a>https://groups.google.com/forum/?fromgroups=#!msg/android-developers/1aPZXZG6kWk/lIYDavGYn5UJ</a>
 	 * @author buihong_ha
 	 */
 	static class StopHandler extends Handler {
@@ -34,7 +34,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 		WeakReference<DataEncodeThread> encodeThread;
 		
 		public StopHandler(DataEncodeThread encodeThread) {
-			this.encodeThread = new WeakReference<DataEncodeThread>(encodeThread);
+			this.encodeThread = new WeakReference<>(encodeThread);
 		}
 		
 		@Override
@@ -50,13 +50,12 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 			}
 			super.handleMessage(msg);
 		}
-	};
+	}
 
 	/**
 	 * Constructor
-	 * @param ringBuffer
-	 * @param os
-	 * @param bufferSize
+	 * @param file file
+	 * @param bufferSize bufferSize
 	 * @throws FileNotFoundException 
 	 */
 	public DataEncodeThread(File file, int bufferSize) throws FileNotFoundException {
@@ -74,7 +73,6 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 
 	/**
 	 * Return the handler attach to this thread
-	 * @return
 	 */
 	public Handler getHandler() {
 		try {
@@ -109,6 +107,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 				try {
 					mFileOutputStream.write(mMp3Buffer, 0, encodedSize);
 				} catch (IOException e) {
+                    e.printStackTrace();
 				}
 			}
 			return readSize;
@@ -126,7 +125,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 			try {
 				mFileOutputStream.write(mMp3Buffer, 0, flushResult);
 			} catch (IOException e) {
-				
+				e.printStackTrace();
 			}finally{
 				if (mFileOutputStream != null) {
 					try {

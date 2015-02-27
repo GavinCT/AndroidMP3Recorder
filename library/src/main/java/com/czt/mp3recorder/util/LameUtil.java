@@ -29,11 +29,11 @@ public class LameUtil {
 	/**
 	 * Encode buffer to mp3.
 	 * 
-	 * @param buffer_l
+	 * @param bufferLeft
 	 *            PCM data for left channel.
-	 * @param buffer_r
+	 * @param bufferRight
 	 *            PCM data for right channel.
-	 * @param sambles
+	 * @param samples
 	 *            number of samples per channel.
 	 * @param mp3buf
 	 *            result encoded MP3 stream. You must specified
