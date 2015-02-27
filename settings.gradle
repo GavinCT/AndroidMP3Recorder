@@ -1,0 +1,2 @@
+include ':AndroidMP3RecorderLibrary'
+include ':AndroidMP3RecorderSample'
