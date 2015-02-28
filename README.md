@@ -9,7 +9,7 @@ AndroidMP3Recorder
 
 - library： MP3录音实现源码库  
 - sample ： 使用范例   
-- 
+
 # 2. 使用方法
 ## 集成到项目中
 
