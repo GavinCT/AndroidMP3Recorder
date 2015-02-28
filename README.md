@@ -4,22 +4,21 @@ AndroidMP3Recorder
 为Android提供MP3录音功能
 
 实现思路讲解：[Android MP3录音实现](http://www.cnblogs.com/ct2011/p/4080193.html) 
-# 1. 目录简介
-- AndroidMP3RecorderLibrary： MP3录音实现源码库  
-- AndroidMP3RecorderSample ： 使用范例  
-- libs.zip ： 打包好的libs目录，包括jar包&so库，方便集成到自己项目中。   
 
+# 1. 目录简介
+
+- library： MP3录音实现源码库  
+- sample ： 使用范例   
+- 
 # 2. 使用方法
 ## 集成到项目中
-两种方式：
-### 1. 使用libs.zip
-**温馨提示：只下载此zip可以使用Chrome插件[GitHub Mate](http://www.v2ex.com/t/93706)**  
 
-解压后在libs目录下有：  
-androidmp3recorderlibrary.jar 和支持arm、armv7、x86 CPU的so库    
-直接拷贝jar包&so库到自己工程的libs文件夹下即可  
-###  2. 使用AndroidMP3RecorderLibrary
-直接将Library与自己工程关联即可。
+```Groovy
+dependencies {
+    compile 'com.czt.mp3recorder:library:1.0@aar'
+}
+```
+
 ## 录音功能实现
 1. 创建MP3Recorder， 传入录音文件的File对象。
 
