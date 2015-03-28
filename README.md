@@ -47,7 +47,15 @@ so库本身没有任何限制，但受限于Android NDK的支持
 - arm armv7 支持Android 1.5 (API Level 3)及以上版本
 - x86支持Android 2.3 (API Level 9)及以上版本
 
-# 5. License
+# 5. 常见问题声明
+本库提供了arm armv7 支持， 即会有armeabi和armeabi-v7a两个文件夹。  
+如果您当前使用的其他so文件只有两个文件夹中的一种，建议您进行拷贝，保证两个文件夹内都有so文件，避免引发`java.lang.UnsatisfiedLinkError`错误。 
+
+以app使用了百度地图sdk为例： 
+一般会引发`java.lang.UnsatisfiedLinkError: Couldn't load BaiduMapSDK_v3_2_0_15 from loader`错误。  
+解决办法： 将armeabi文件夹下的 .so文件，一并copy至armeabi-v7a，使两个文件夹下都有相应文件。
+
+# 6. License
 
     Copyright 2014 GavinCT
 
