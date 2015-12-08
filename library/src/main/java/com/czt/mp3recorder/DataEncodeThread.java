@@ -56,7 +56,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 	 * Constructor
 	 * @param file file
 	 * @param bufferSize bufferSize
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException file not found
 	 */
 	public DataEncodeThread(File file, int bufferSize) throws FileNotFoundException {
 		this.mFileOutputStream = new FileOutputStream(file);
@@ -73,6 +73,7 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 
 	/**
 	 * Return the handler attach to this thread
+	 * @return the handler attach to this thread
 	 */
 	public Handler getHandler() {
 		try {

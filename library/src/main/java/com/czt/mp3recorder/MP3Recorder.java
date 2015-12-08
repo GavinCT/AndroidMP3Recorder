@@ -50,6 +50,7 @@ public class MP3Recorder {
 	/**
 	 * Default constructor. Setup recorder with default sampling rate 1 channel,
 	 * 16 bits pcm
+	 * @param recordFile target file
 	 */
 	public MP3Recorder(File recordFile) {
 		mRecordFile = recordFile;
@@ -59,7 +60,7 @@ public class MP3Recorder {
 	 * Start recording. Create an encoding thread. Start record from this
 	 * thread.
 	 * 
-	 * @throws IOException
+	 * @throws IOException  initAudioRecorder throws
 	 */
 	public void start() throws IOException {
 		if (mIsRecording) return;

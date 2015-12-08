@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "1.0"
+version = "1.0.1"
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
     resourcePrefix "AndroidMP3RecorderLibrary_"	//这个随便填
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 21
+        targetSdkVersion 23
 //      暂时屏蔽，等AndroidStudio NDK开发完善后再放开
 //        ndk {
 //            moduleName "mp3lame"
@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:support-v4:23.1.1'
 }
 
 def siteUrl = 'https://github.com/GavinCT/AndroidMP3Recorder'      // 项目的主页
