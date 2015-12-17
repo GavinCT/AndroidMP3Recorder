@@ -97,7 +97,7 @@ public class MP3Recorder {
 			 * @param readSize readSize
 			 */
 			private void calculateRealVolume(short[] buffer, int readSize) {
-				int sum = 0;
+				double sum = 0;
 				for (int i = 0; i < readSize; i++) {  
 				    // 这里没有做运算的优化，为了更加清晰的展示代码  
 				    sum += buffer[i] * buffer[i]; 
