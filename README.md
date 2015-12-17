@@ -15,7 +15,7 @@ AndroidMP3Recorder
 
 ```Groovy
 dependencies {
-    compile 'com.czt.mp3recorder:library:1.0.1'
+    compile 'com.czt.mp3recorder:library:1.0.2'
 }
 ```
 
@@ -70,7 +70,3 @@ so库本身没有任何限制，但受限于Android NDK的支持
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-# 7. CHANGELOG
-- 1.0.2 修复音量过大为负的问题 [issue 10](https://github.com/GavinCT/AndroidMP3Recorder/issues/10)
-- 1.0.1 新增64位so   so编译改为all  mips及 64位均支持
-- 1.0
