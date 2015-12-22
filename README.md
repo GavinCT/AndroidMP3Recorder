@@ -48,12 +48,47 @@ so库本身没有任何限制，但受限于Android NDK的支持
 - x86支持Android 2.3 (API Level 9)及以上版本
 
 # 5. 常见问题声明
-本库提供了arm armv7 支持， 即会有armeabi和armeabi-v7a两个文件夹。  
-如果您当前使用的其他so文件只有两个文件夹中的一种，建议您进行拷贝，保证两个文件夹内都有so文件，避免引发`java.lang.UnsatisfiedLinkError`错误。 
+
+## 使用so中的部分
+
+本库提供了 arm mips x86 等多种so，如果您只需要其中的几种，可以在gradle中添加下面的语法：
+
+```groovy
+productFlavors {
+  arm {
+    ndk {
+      abiFilters "armeabi-v7a", "armeabi"
+    }
+  }
+  x86 {
+    ndk {
+      abiFilter "x86"
+    }
+  }
+}
+```
+
+以上会在arm中接入armv7 arm包，最新的64位v8不会放入。 同时没有提供mips的flavor，也保证了没有mips的so。 但最新的1.5.0插件不支持这种写法，且新版的ndk还处于试验阶段，所以一般使用了上述写法会报错，报错中给出了提示，即在gradle.properties中添加
+
+```
+android.useDeprecatedNdk=true
+```
+
+即可正常使用
+
+## 遇到了 java.lang.UnsatisfiedLinkError错误
+
+这种情况一般是so不全导致的。
 
 以app使用了百度地图sdk为例：   
-一般会引发`java.lang.UnsatisfiedLinkError: Couldn't load BaiduMapSDK_v3_2_0_15 from loader`错误。  
-解决办法： 将armeabi文件夹下的 .so文件，一并copy至armeabi-v7a，使两个文件夹下都有相应文件。
+
+假如百度地图只提供了arm 的so ， 您使用了本库后会有arm armv7 armv8等多种库，这样打包后会产生armeabi、armeabi-v7a、armeabi-v8a等多个文件夹，但百度地图在armv7 v8下并没有so，这样就会引发`java.lang.UnsatisfiedLinkError: Couldn't load BaiduMapSDK_v3_2_0_15 from loader`错误。  
+
+解决办法有两种：
+
+- 联系其他库的提供者补全
+- 如果不行的话，可以利用上面提到的abiFilters来过滤掉本库的so，这样只提供arm一般是可以兼容的。
+
 
 # 6. License
 
