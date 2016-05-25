@@ -110,10 +110,31 @@ public class MP3Recorder {
 		}.start();
 	}
 	private int mVolume;
+
+	/**
+	 * 获取真实的音量。 [算法来自三星]
+	 * @return 真实音量
+     */
+	public int getRealVolume() {
+		return mVolume;
+	}
+
+	/**
+	 * 获取相对音量。 超过最大值时取最大值。
+	 * @return 音量
+     */
 	public int getVolume(){
+		if (mVolume >= MAX_VOLUME) {
+			return MAX_VOLUME;
+		}
 		return mVolume;
 	}
 	private static final int MAX_VOLUME = 2000;
+
+	/**
+	 * 根据资料假定的最大值。 实测时有时超过此值。
+	 * @return 最大音量值。
+     */
 	public int getMaxVolume(){
 		return MAX_VOLUME;
 	}
