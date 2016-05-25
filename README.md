@@ -15,7 +15,7 @@ AndroidMP3Recorder
 
 ```Groovy
 dependencies {
-    compile 'com.czt.mp3recorder:library:1.0.2'
+    compile 'com.czt.mp3recorder:library:1.0.3'
 }
 ```
 
