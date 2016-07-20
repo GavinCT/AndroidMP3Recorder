@@ -66,13 +66,13 @@ public class MP3Recorder {
 		if (mIsRecording) return;
 	    initAudioRecorder();
 		mAudioRecord.startRecording();
+		mIsRecording = true;
 		new Thread() {
 
 			@Override
 			public void run() {
 				//设置线程权限
 				android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
-				mIsRecording = true;
 				while (mIsRecording) {
 					int readSize = mAudioRecord.read(mPCMBuffer, 0, mBufferSize);
 					if (readSize > 0) {
