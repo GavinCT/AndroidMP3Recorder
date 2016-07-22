@@ -36,7 +36,8 @@ public class MP3Recorder {
 	private static final int DEFAULT_LAME_MP3_BIT_RATE = 32;
 	
 	//==================================================================
-	
+	private static final int STATR = 1;
+	private static final int STOP = 2;
 	/**
 	 * 自定义 每160帧作为一个周期，通知一下需要进行编码
 	 */
@@ -47,6 +48,7 @@ public class MP3Recorder {
 	private DataEncodeThread mEncodeThread;
 	private boolean mIsRecording = false;
 	private File mRecordFile;
+	private OnMp3RecorderListener listener;
 	/**
 	 * Default constructor. Setup recorder with default sampling rate 1 channel,
 	 * 16 bits pcm
@@ -69,6 +71,10 @@ public class MP3Recorder {
 		mIsRecording = true; // 提早，防止init或startRecording被多次调用
 	    initAudioRecorder();
 		mAudioRecord.startRecording();
+		Message uMsg = handler.obtainMessage();
+		uMsg.what = STATR;
+		handler.sendMessage(uMsg);
+		mAudioRecord.startRecording();
 		new Thread() {
 			@Override
 			public void run() {
@@ -90,6 +96,9 @@ public class MP3Recorder {
 				Message msg = Message.obtain(mEncodeThread.getHandler(),
 						DataEncodeThread.PROCESS_STOP);
 				msg.sendToTarget();
+				Message uMsg = handler.obtainMessage();
+				uMsg.what = STOP;
+				handler.sendMessage(uMsg);
 			}
 			/**
 			 * 此计算方法来自samsung开发范例
@@ -182,5 +191,31 @@ public class MP3Recorder {
 		mEncodeThread.start();
 		mAudioRecord.setRecordPositionUpdateListener(mEncodeThread, mEncodeThread.getHandler());
 		mAudioRecord.setPositionNotificationPeriod(FRAME_COUNT);
+	}
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (listener != null) {
+				switch (msg.what) {
+					case STATR:
+						listener.startMP3Recorder();
+						break;
+					case STOP:
+						listener.stopMP3Recorder();
+						break;
+				}
+			}
+		}
+	};
+
+	public void setOnMp3RecorderListener(OnMp3RecorderListener listener) {
+		this.listener = listener;
+	}
+
+	public interface OnMp3RecorderListener {
+		public void startMP3Recorder();
+
+		public void stopMP3Recorder();
 	}
 }
