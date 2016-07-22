@@ -63,16 +63,17 @@ public class MP3Recorder {
 	 * @throws IOException  initAudioRecorder throws
 	 */
 	public void start() throws IOException {
-		if (mIsRecording) return;
+		if (mIsRecording) {
+			return;
+		}
+		mIsRecording = true; // 提早，防止init或startRecording被多次调用
 	    initAudioRecorder();
 		mAudioRecord.startRecording();
 		new Thread() {
-
 			@Override
 			public void run() {
 				//设置线程权限
 				android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
-				mIsRecording = true;
 				while (mIsRecording) {
 					int readSize = mAudioRecord.read(mPCMBuffer, 0, mBufferSize);
 					if (readSize > 0) {
@@ -106,7 +107,7 @@ public class MP3Recorder {
 					double amplitude = sum / readSize;
 					mVolume = (int) Math.sqrt(amplitude);
 				}
-			};
+			}
 		}.start();
 	}
 	private int mVolume;
