@@ -3,7 +3,6 @@ package com.czt.mp3recorder;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.os.Message;
 
 import com.czt.mp3recorder.util.LameUtil;
 
@@ -87,9 +86,7 @@ public class MP3Recorder {
 				mAudioRecord = null;
 				// stop the encoding thread and try to wait
 				// until the thread finishes its job
-				Message msg = Message.obtain(mEncodeThread.getHandler(),
-						DataEncodeThread.PROCESS_STOP);
-				msg.sendToTarget();
+				mEncodeThread.sendStopMessage();
 			}
 			/**
 			 * 此计算方法来自samsung开发范例

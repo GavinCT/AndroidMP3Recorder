@@ -2,6 +2,7 @@ package com.czt.mp3recorder;
 
 import android.media.AudioRecord;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
@@ -11,44 +12,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
-public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPositionUpdateListener {
-	public static final int PROCESS_STOP = 1;
+public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRecordPositionUpdateListener {
 	private StopHandler mHandler;
+	private static final int PROCESS_STOP = 1;
 	private byte[] mMp3Buffer;
 	private FileOutputStream mFileOutputStream;
 
-	private CountDownLatch mHandlerInitLatch = new CountDownLatch(1);
-	
-	/**
-	 * @see <a>https://groups.google.com/forum/?fromgroups=#!msg/android-developers/1aPZXZG6kWk/lIYDavGYn5UJ</a>
-	 * @author buihong_ha
-	 */
-	static class StopHandler extends Handler {
+	private static class StopHandler extends Handler {
 		
-		WeakReference<DataEncodeThread> encodeThread;
+		private DataEncodeThread encodeThread;
 		
-		public StopHandler(DataEncodeThread encodeThread) {
-			this.encodeThread = new WeakReference<>(encodeThread);
+		public StopHandler(Looper looper, DataEncodeThread encodeThread) {
+			super(looper);
+			this.encodeThread = encodeThread;
 		}
-		
+
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == PROCESS_STOP) {
-				DataEncodeThread threadRef = encodeThread.get();
 				//处理缓冲区中的数据
-				while (threadRef.processData() > 0);
+				while (encodeThread.processData() > 0);
 				// Cancel any event left in the queue
-				removeCallbacksAndMessages(null);					
-				threadRef.flushAndRelease();
+				removeCallbacksAndMessages(null);
+				encodeThread.flushAndRelease();
 				getLooper().quit();
 			}
-			super.handleMessage(msg);
 		}
 	}
 
@@ -59,28 +51,29 @@ public class DataEncodeThread extends Thread implements AudioRecord.OnRecordPosi
 	 * @throws FileNotFoundException file not found
 	 */
 	public DataEncodeThread(File file, int bufferSize) throws FileNotFoundException {
+		super("DataEncodeThread");
 		this.mFileOutputStream = new FileOutputStream(file);
 		mMp3Buffer = new byte[(int) (7200 + (bufferSize * 2 * 1.25))];
 	}
 
 	@Override
-	public void run() {
-		Looper.prepare();
-		mHandler = new StopHandler(this);
-		mHandlerInitLatch.countDown();
-		Looper.loop();
+	public synchronized void start() {
+		super.start();
+		mHandler = new StopHandler(getLooper(), this);
 	}
 
-	/**
-	 * Return the handler attach to this thread
-	 * @return the handler attach to this thread
-	 */
-	public Handler getHandler() {
-		try {
-			mHandlerInitLatch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	private void check() {
+		if (mHandler == null) {
+			throw new IllegalStateException();
 		}
+	}
+
+	public void sendStopMessage() {
+		check();
+		mHandler.sendEmptyMessage(PROCESS_STOP);
+	}
+	public Handler getHandler() {
+		check();
 		return mHandler;
 	}
 
