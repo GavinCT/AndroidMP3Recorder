@@ -19,6 +19,7 @@ import java.util.List;
 public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRecordPositionUpdateListener {
 	private StopHandler mHandler;
 	private static final int PROCESS_STOP = 1;
+	private static final int PROCESS_PAUSE = 2;
 	private byte[] mMp3Buffer;
 	private FileOutputStream mFileOutputStream;
 
@@ -33,14 +34,28 @@ public class DataEncodeThread extends HandlerThread implements AudioRecord.OnRec
 
 		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == PROCESS_STOP) {
-				//处理缓冲区中的数据
-				while (encodeThread.processData() > 0);
-				// Cancel any event left in the queue
-				removeCallbacksAndMessages(null);
-				encodeThread.flushAndRelease();
-				getLooper().quit();
+			switch (msg.what) {
+				case PROCESS_STOP:
+					processStop();
+					break;
+				case PROCESS_PAUSE:
+					processPause();
+					break;
 			}
+		}
+
+		private void processStop() {
+			//处理缓冲区中的数据
+			while (encodeThread.processData() > 0);
+			// Cancel any event left in the queue
+			removeCallbacksAndMessages(null);
+			encodeThread.flushAndRelease();
+			getLooper().quit();
+		}
+
+		private void processPause() {
+			//处理缓冲区中的数据
+			while (encodeThread.processData() > 0);
 		}
 	}
 
