@@ -1,7 +1,12 @@
-AndroidMP3Recorder
+AndroidMP3Recorder[RETIRED]
 ==================
+停止维护声明
+因个人精力原因，暂时无法顾及到本库的维护和更新。  
+需要的同学请自行fork进行改进，谢谢   实现思路讲解：[Android MP3录音实现](http://www.cnblogs.com/ct2011/p/4080193.html)   
 
-为Android提供MP3录音功能
+
+
+<del>为Android提供MP3录音功能
 
 实现思路讲解：[Android MP3录音实现](http://www.cnblogs.com/ct2011/p/4080193.html) 
 
@@ -87,7 +92,7 @@ android.useDeprecatedNdk=true
 解决办法有两种：
 
 - 联系其他库的提供者补全
-- 如果不行的话，可以利用上面提到的abiFilters来过滤掉本库的so，这样只提供arm一般是可以兼容的。
+- 如果不行的话，可以利用上面提到的abiFilters来过滤掉本库的so，这样只提供arm一般是可以兼容的。</del>
 
 
 # 6. License
