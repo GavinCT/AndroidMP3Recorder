@@ -1,7 +1,7 @@
 AndroidMP3Recorder[RETIRED]
 ==================
 # 停止维护声明
-*因个人精力原因，暂时无法顾及到本库的维护和更新。*    
+*因个人精力原因，无法顾及到本库的维护和更新。*    
 *需要的同学请自行fork进行改进，谢谢   ==> 实现思路讲解：[Android MP3录音实现](http://www.cnblogs.com/ct2011/p/4080193.html)*   
 
 ---
@@ -12,7 +12,7 @@ AndroidMP3Recorder[RETIRED]
 
 # ~~1. 目录简介~~
 
-- ~~library： MP3录音实现源码库 ~~
+- ~~library： MP3录音实现源码库~~
 - ~~sample ： 使用范例~~ 
 
 # ~~2. 使用方法~~
