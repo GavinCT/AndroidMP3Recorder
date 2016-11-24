@@ -68,6 +68,7 @@ public class MP3Recorder {
 		mIsRecording = true; // 提早，防止init或startRecording被多次调用
 	    initAudioRecorder();
 		mAudioRecord.startRecording();
+		mIsRecording = true;
 		new Thread() {
 			@Override
 			public void run() {
