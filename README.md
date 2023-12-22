@@ -1,5 +1,29 @@
+> 原库地址：https://github.com/GavinCT/AndroidMP3Recorder
+>
+> 更改项：
+>
+> 1. 删除 support 库。
+> 2. compileVersion & targetVersion 从 23 升到 34。
+> 3. minSdvVersion 从 9 升到 20。
+> 4. 删除 mips、x86 等 so，仅保留 arm 系列。
+>
+> 使用方式：
+>
+> 1. 打开 [Releases](https://github.com/yibaoshan/AndroidMP3Recorder/releases) 页面，下载 AAR 包（com.czt.mp3recorder-library-1.0.5.aar）。
+> 2. 把 AAR 包保存到模块的 libs 目录下，然后在 build.gradle 指定依赖。
+>
+> ```
+> dependencies {
+> 
+>     implementation fileTree(dir: 'libs', include: ['*.jar'])
+>     implementation files('libs/com.czt.mp3recorder-library-1.0.5.aar')
+> 
+> }
+> ```
+
 AndroidMP3Recorder[RETIRED]
 ==================
+
 # 停止维护声明
 *因个人精力原因，无法顾及到本库的维护和更新。*    
 *需要的同学请自行fork进行改进，谢谢   ==> 实现思路讲解：[Android MP3录音实现](http://www.cnblogs.com/ct2011/p/4080193.html)*   
@@ -98,13 +122,13 @@ android.useDeprecatedNdk=true
 # 6. License
 
     Copyright 2014 GavinCT
-
+    
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
        http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
